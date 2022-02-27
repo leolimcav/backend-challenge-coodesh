@@ -19,6 +19,6 @@ describe('AppController (e2e)', () => {
     return request(app.getHttpServer())
       .get('/')
       .expect(200)
-      .expect('Hello World!');
+      .expect('Back-end Challenge 2021 🏅 - Space Flight News');
   });
 });

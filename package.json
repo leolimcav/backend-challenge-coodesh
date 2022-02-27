@@ -1,8 +1,8 @@
 {
   "name": "backend-challenge-coodesh",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Desafio técnico Coodesh",
+  "author": "Leonardo Lima Cavalcante",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
