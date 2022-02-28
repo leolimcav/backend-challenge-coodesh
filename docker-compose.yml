@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  database:
+    image: 'postgres:latest'
+    ports:
+      - '5432:5432'
+    env_file:
+      - .env
+    container_name: 'spaceflight-db'
+    networks:
+      - database-network
+    volumes:
+      - 'database-volume:/var/lib/postgresql/data'
+
+networks:
+  database-network:
+    name: db-network
+
+volumes:
+  database-volume:
