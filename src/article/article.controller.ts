@@ -1,34 +1,46 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, HttpCode, Query, Put, Res, HttpStatus, NotFoundException } from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 
+type Options = {
+  skip: number;
+  take: number;
+}
+
 @Controller('article')
 export class ArticleController {
-  constructor(private readonly articleService: ArticleService) {}
+  constructor(private readonly articleService: ArticleService) { }
 
   @Post()
-  create(@Body() createArticleDto: CreateArticleDto) {
+  async create(@Body() createArticleDto: CreateArticleDto) {
     return this.articleService.create(createArticleDto);
   }
 
   @Get()
-  findAll() {
-    return this.articleService.findAll();
+  @HttpCode(200)
+  async findAll(@Query() { skip, take }: Options) {
+    return this.articleService.findAll({ skip, take });
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.articleService.findOne(+id);
+  async findOne(@Param('id') id: number) {
+    const article = await this.articleService.findOne(id);
+
+    if (!article) {
+      throw new NotFoundException('Article not found!');
+    }
+
+    return article;
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateArticleDto: UpdateArticleDto) {
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() updateArticleDto: UpdateArticleDto) {
     return this.articleService.update(+id, updateArticleDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
     return this.articleService.remove(+id);
   }
 }

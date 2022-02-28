@@ -1,19 +1,47 @@
 import { Injectable } from '@nestjs/common';
+import { Article } from '@prisma/client';
+import { PrismaService } from '../prisma.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 
+type Options = {
+  skip: number;
+  take: number;
+}
+
 @Injectable()
 export class ArticleService {
-  create(createArticleDto: CreateArticleDto) {
-    return 'This action adds a new article';
+  constructor(private prisma: PrismaService) { }
+
+  async create({ title, url, imageUrl, newsSite, summary, featured }: CreateArticleDto): Promise<Article> {
+    return this.prisma.article.create({
+      data: {
+        title,
+        url,
+        imageUrl,
+        newsSite,
+        summary,
+        featured
+      }
+    });
   }
 
-  findAll() {
-    return `This action returns all article`;
+  async findAll({ skip, take }: Options): Promise<Array<Article>> {
+    return this.prisma.article.findMany({
+      skip,
+      take,
+      orderBy: {
+        publishedAt: 'desc'
+      }
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} article`;
+  async findOne(id: number): Promise<Article | null> {
+    return this.prisma.article.findFirst({
+      where: {
+        id
+      }
+    });
   }
 
   update(id: number, updateArticleDto: UpdateArticleDto) {
