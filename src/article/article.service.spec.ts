@@ -69,11 +69,10 @@ describe('ArticleService', () => {
         imageUrl: faker.image.imageUrl(),
         summary: faker.lorem.text(),
         newsSite: faker.internet.domainName(),
-        featured: false,
-        publishedAt: new Date()
+        featured: false
       };
 
-      prisma.article.create = jest.fn().mockReturnValueOnce({ id: randomInt(100), ...payload });
+      prisma.article.create = jest.fn().mockReturnValueOnce({ id: randomInt(100), publishedAt: new Date(), ...payload });
 
       const result = await service.create(payload);
 

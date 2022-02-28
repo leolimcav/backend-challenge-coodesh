@@ -13,7 +13,7 @@ type Options = {
 export class ArticleService {
   constructor(private prisma: PrismaService) { }
 
-  async create({ title, url, imageUrl, newsSite, summary, featured, publishedAt }: CreateArticleDto): Promise<Article> {
+  async create({ title, url, imageUrl, newsSite, summary, featured }: CreateArticleDto): Promise<Article> {
     return this.prisma.article.create({
       data: {
         title,
@@ -22,7 +22,7 @@ export class ArticleService {
         newsSite,
         summary,
         featured,
-        publishedAt
+        publishedAt: new Date()
       }
     });
   }
