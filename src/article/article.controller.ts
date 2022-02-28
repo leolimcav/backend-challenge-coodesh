@@ -13,6 +13,7 @@ export class ArticleController {
   constructor(private readonly articleService: ArticleService) { }
 
   @Post()
+  @HttpCode(201)
   async create(@Body() createArticleDto: CreateArticleDto) {
     return this.articleService.create(createArticleDto);
   }
@@ -24,8 +25,9 @@ export class ArticleController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number) {
-    const article = await this.articleService.findOne(id);
+  @HttpCode(200)
+  async findOne(@Param('id') id: string) {
+    const article = await this.articleService.findOne(Number(id));
 
     if (!article) {
       throw new NotFoundException('Article not found!');
