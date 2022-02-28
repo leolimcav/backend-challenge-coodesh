@@ -38,11 +38,17 @@ export class ArticleController {
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateArticleDto: UpdateArticleDto) {
-    return this.articleService.update(+id, updateArticleDto);
+    const article = await this.articleService.update(Number(id), updateArticleDto);
+
+    if (!article) {
+      throw new NotFoundException("Article not found!");
+    }
+
+    return article;
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return this.articleService.remove(+id);
+    return this.articleService.remove(Number(id));
   }
 }

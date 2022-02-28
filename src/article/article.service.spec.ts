@@ -5,7 +5,8 @@ import { PrismaService } from '../prisma.service';
 import { randomInt } from 'crypto';
 import { faker } from '@faker-js/faker';
 import { CreateArticleDto } from './dto/create-article.dto';
-
+import { UpdateArticleDto } from './dto/update-article.dto';
+import { NotFoundException } from '@nestjs/common';
 
 describe('ArticleService', () => {
   let service: ArticleService;
@@ -13,7 +14,7 @@ describe('ArticleService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [PrismaService, ArticleService]
+      providers: [PrismaService, ArticleService],
     }).compile();
 
     service = module.get<ArticleService>(ArticleService);
@@ -41,7 +42,7 @@ describe('ArticleService', () => {
         featured: false,
         imageUrl: '',
         newsSite: '',
-        publishedAt: new Date()
+        publishedAt: new Date(),
       };
 
       prisma.article.findFirst = jest.fn().mockReturnValueOnce(article);
@@ -69,15 +70,87 @@ describe('ArticleService', () => {
         imageUrl: faker.image.imageUrl(),
         summary: faker.lorem.text(),
         newsSite: faker.internet.domainName(),
-        featured: false
+        featured: true,
       };
 
-      prisma.article.create = jest.fn().mockReturnValueOnce({ id: randomInt(100), publishedAt: new Date(), ...payload });
+      prisma.article.create = jest.fn().mockReturnValueOnce({
+        id: randomInt(100),
+        publishedAt: new Date(),
+        ...payload,
+      });
 
       const result = await service.create(payload);
 
       expect(result).toBeDefined();
       expect(result.title).toBe(payload.title);
+    });
+  });
+
+  describe('Update article', () => {
+    it('should update an article with the provided id', async () => {
+      const id = randomInt(100);
+      const payload: UpdateArticleDto = {
+        title: faker.lorem.word(),
+        url: faker.internet.url(),
+        imageUrl: faker.image.imageUrl(),
+        summary: faker.lorem.text(),
+        newsSite: faker.internet.domainName(),
+        featured: true,
+      };
+
+      prisma.article.update = jest
+        .fn()
+        .mockReturnValueOnce({ id, publishedAt: new Date(), ...payload });
+
+      const result = await service.update(id, payload);
+
+      expect(result).toBeDefined();
+      expect(result.id).toBe(id);
+      expect(result.title).toBe(payload.title);
+    });
+
+    it('should not update when article with the provided id is not found', async () => {
+      const id = randomInt(100);
+      const payload: UpdateArticleDto = {
+        title: faker.lorem.word(),
+        url: faker.internet.url(),
+        imageUrl: faker.image.imageUrl(),
+        summary: faker.lorem.text(),
+        newsSite: faker.internet.domainName(),
+        featured: true,
+      };
+
+      prisma.article.update = jest.fn().mockImplementationOnce(() => {
+        throw new NotFoundException('Article not found!');
+      });
+
+      const result = await service.update(id, payload);
+
+      expect(result).toBeNull();
+    });
+  });
+
+  describe('Delete article', () => {
+    it('should delete an article with the provided id', async () => {
+      const id = randomInt(100);
+
+      const article: Article = {
+        id,
+        title: faker.lorem.word(),
+        summary: faker.lorem.text(),
+        publishedAt: new Date(),
+        imageUrl: faker.image.imageUrl(),
+        url: faker.internet.url(),
+        featured: false,
+        newsSite: faker.internet.domainName(),
+      };
+
+      prisma.article.delete = jest.fn().mockReturnValueOnce(article);
+
+      const result = await service.remove(id);
+
+      expect(result).toBeDefined();
+      expect(result.id).toBe(id);
     });
   });
 });

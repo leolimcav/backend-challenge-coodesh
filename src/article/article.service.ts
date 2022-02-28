@@ -45,11 +45,31 @@ export class ArticleService {
     });
   }
 
-  update(id: number, updateArticleDto: UpdateArticleDto) {
-    return `This action updates a #${id} article`;
+  async update(id: number, { title, url, imageUrl, summary, featured, newsSite }: UpdateArticleDto): Promise<Article | null> {
+    try {
+      return await this.prisma.article.update({
+        where: {
+          id,
+        },
+        data: {
+          title,
+          url,
+          imageUrl,
+          summary,
+          featured,
+          newsSite
+        }
+      });
+    } catch (error) {
+      return null;
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} article`;
+  async remove(id: number) {
+    return this.prisma.article.delete({
+      where: {
+        id
+      }
+    });
   }
 }
