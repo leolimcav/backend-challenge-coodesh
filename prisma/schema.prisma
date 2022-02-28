@@ -18,5 +18,5 @@ model Article {
   imageUrl    String
   newsSite    String
   summary     String
-  publishedAt DateTime @default(now())
+  publishedAt DateTime
 }

@@ -5,4 +5,5 @@ export class CreateArticleDto {
   newsSite: string;
   summary: string;
   featured: boolean = false;
+  publishedAt: Date
 }

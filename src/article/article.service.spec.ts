@@ -3,7 +3,8 @@ import { Article } from '@prisma/client';
 import { ArticleService } from './article.service';
 import { PrismaService } from '../prisma.service';
 import { randomInt } from 'crypto';
-import { HttpException } from '@nestjs/common';
+import { faker } from '@faker-js/faker';
+import { CreateArticleDto } from './dto/create-article.dto';
 
 
 describe('ArticleService', () => {
@@ -50,13 +51,34 @@ describe('ArticleService', () => {
       expect(result.id).toBe(id);
     });
 
-    it('should throw an error when article with provided id is not found', async () => {
+    it('should return null when article with provided id is not found', async () => {
       const id = randomInt(100);
       prisma.article.findFirst = jest.fn().mockReturnValueOnce(null);
 
       const result = await service.findOne(id);
 
       expect(result).toBeNull();
+    });
+  });
+
+  describe('Create Articles', () => {
+    it('should create an article', async () => {
+      const payload: CreateArticleDto = {
+        title: faker.datatype.string(),
+        url: faker.internet.url(),
+        imageUrl: faker.image.imageUrl(),
+        summary: faker.lorem.text(),
+        newsSite: faker.internet.domainName(),
+        featured: false,
+        publishedAt: new Date()
+      };
+
+      prisma.article.create = jest.fn().mockReturnValueOnce({ id: randomInt(100), ...payload });
+
+      const result = await service.create(payload);
+
+      expect(result).toBeDefined();
+      expect(result.title).toBe(payload.title);
     });
   });
 });
