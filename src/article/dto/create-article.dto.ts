@@ -4,5 +4,5 @@ export class CreateArticleDto {
   imageUrl: string;
   newsSite: string;
   summary: string;
-  featured: boolean = false;
+  featured = false;
 }

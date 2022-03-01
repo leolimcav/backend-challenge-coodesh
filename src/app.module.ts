@@ -6,12 +6,8 @@ import { AppService } from './app.service';
 import { ArticleModule } from './article/article.module';
 
 @Module({
-  imports: [
-    ArticleModule,
-    ConfigModule.forRoot(),
-    ScheduleModule.forRoot()
-  ],
+  imports: [ArticleModule, ConfigModule.forRoot(), ScheduleModule.forRoot()],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

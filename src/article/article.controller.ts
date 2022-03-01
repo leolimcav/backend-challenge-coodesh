@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Body, Param, Delete, HttpCode, Query, Put, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  HttpCode,
+  Query,
+  Put,
+  NotFoundException,
+} from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
@@ -6,11 +17,11 @@ import { UpdateArticleDto } from './dto/update-article.dto';
 type Options = {
   skip: number;
   take: number;
-}
+};
 
 @Controller('article')
 export class ArticleController {
-  constructor(private readonly articleService: ArticleService) { }
+  constructor(private readonly articleService: ArticleService) {}
 
   @Post()
   @HttpCode(201)
@@ -37,11 +48,17 @@ export class ArticleController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateArticleDto: UpdateArticleDto) {
-    const article = await this.articleService.update(Number(id), updateArticleDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updateArticleDto: UpdateArticleDto,
+  ) {
+    const article = await this.articleService.update(
+      Number(id),
+      updateArticleDto,
+    );
 
     if (!article) {
-      throw new NotFoundException("Article not found!");
+      throw new NotFoundException('Article not found!');
     }
 
     return article;

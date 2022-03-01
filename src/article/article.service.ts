@@ -7,13 +7,20 @@ import { UpdateArticleDto } from './dto/update-article.dto';
 type Options = {
   skip: number;
   take: number;
-}
+};
 
 @Injectable()
 export class ArticleService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
-  async create({ title, url, imageUrl, newsSite, summary, featured }: CreateArticleDto): Promise<Article> {
+  async create({
+    title,
+    url,
+    imageUrl,
+    newsSite,
+    summary,
+    featured,
+  }: CreateArticleDto): Promise<Article> {
     return this.prisma.article.create({
       data: {
         title,
@@ -22,8 +29,8 @@ export class ArticleService {
         newsSite,
         summary,
         featured,
-        publishedAt: new Date()
-      }
+        publishedAt: new Date(),
+      },
     });
   }
 
@@ -32,20 +39,23 @@ export class ArticleService {
       skip,
       take,
       orderBy: {
-        publishedAt: 'desc'
-      }
+        publishedAt: 'desc',
+      },
     });
   }
 
   async findOne(id: number): Promise<Article | null> {
     return this.prisma.article.findFirst({
       where: {
-        id
-      }
+        id,
+      },
     });
   }
 
-  async update(id: number, { title, url, imageUrl, summary, featured, newsSite }: UpdateArticleDto): Promise<Article | null> {
+  async update(
+    id: number,
+    { title, url, imageUrl, summary, featured, newsSite }: UpdateArticleDto,
+  ): Promise<Article | null> {
     try {
       return await this.prisma.article.update({
         where: {
@@ -57,8 +67,8 @@ export class ArticleService {
           imageUrl,
           summary,
           featured,
-          newsSite
-        }
+          newsSite,
+        },
       });
     } catch (error) {
       return null;
@@ -68,8 +78,8 @@ export class ArticleService {
   async remove(id: number) {
     return this.prisma.article.delete({
       where: {
-        id
-      }
+        id,
+      },
     });
   }
 }

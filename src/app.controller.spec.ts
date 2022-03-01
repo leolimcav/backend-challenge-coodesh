@@ -16,7 +16,9 @@ describe('AppController', () => {
 
   describe('root', () => {
     it('should return "Back-end Challenge 2021 🏅 - Space Flight News"', () => {
-      expect(appController.getHello()).toBe('Back-end Challenge 2021 🏅 - Space Flight News');
+      expect(appController.getHello()).toBe(
+        'Back-end Challenge 2021 🏅 - Space Flight News',
+      );
     });
   });
 });
