@@ -5,16 +5,30 @@ services:
     ports:
       - '5432:5432'
     env_file:
-      - .env
+      - .env.dev
     container_name: 'spaceflight-db'
     networks:
-      - database-network
+      - spaceflight-network
     volumes:
       - 'database-volume:/var/lib/postgresql/data'
-
+  api:
+    container_name: spaceflight-api
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - '3000:3000'
+    env_file:
+      - .env.dev
+    networks:
+      - spaceflight-network
+    volumes:
+      - '.:/opt/app'
+    depends_on:
+      - database
 networks:
-  database-network:
-    name: db-network
+  spaceflight-network:
+    name: spaceflight-network
 
 volumes:
   database-volume:
