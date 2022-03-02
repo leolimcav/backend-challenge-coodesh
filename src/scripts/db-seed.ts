@@ -22,7 +22,7 @@ async function populateDatabase() {
   let error = false;
 
   while (skip < count) {
-    console.log(`Fetching at: ${skip}`);
+    console.log(`Fetching with start at: ${skip}`);
     await api
       .get<CreateArticleDto[]>(`/articles?_start=${skip}&_limit=${take}`)
       .then(async ({ data }) => {
@@ -38,7 +38,7 @@ async function populateDatabase() {
             const articles = JSON.parse(chunk);
             const articlesDto = new Array<CreateArticleDto>();
 
-            articles.forEach((article) => {
+            articles.forEach((article: any) => {
               const articleDto = new CreateArticleDto();
               articleDto.title = article.title;
               articleDto.url = article.url;

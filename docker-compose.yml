@@ -5,7 +5,7 @@ services:
     ports:
       - '5432:5432'
     env_file:
-      - .env.dev
+      - .env
     container_name: 'spaceflight-db'
     networks:
       - spaceflight-network
@@ -20,7 +20,7 @@ services:
     ports:
       - '3000:3000'
     env_file:
-      - .env.dev
+      - .env
     networks:
       - spaceflight-network
     volumes:

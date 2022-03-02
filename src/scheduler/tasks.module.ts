@@ -1,8 +1,8 @@
-import { HttpModule, HttpService } from "@nestjs/axios";
-import { Module } from "@nestjs/common";
-import { ConfigModule, ConfigService } from "@nestjs/config";
-import { PrismaService } from "src/prisma.service";
-import { TasksService } from "./tasks.service";
+import { HttpModule } from '@nestjs/axios';
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { PrismaService } from 'src/prisma.service';
+import { TasksService } from './tasks.service';
 
 @Module({
   imports: [
@@ -13,10 +13,9 @@ import { TasksService } from "./tasks.service";
         maxRedirects: 5,
         baseURL: configService.get('SPACEFLIGHT_API_URL'),
       }),
-      inject: [ConfigService]
+      inject: [ConfigService],
     }),
   ],
-  providers: [TasksService, PrismaService]
+  providers: [TasksService, PrismaService],
 })
-
-export class TasksModule { };
+export class TasksModule {}
