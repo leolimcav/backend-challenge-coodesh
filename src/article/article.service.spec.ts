@@ -71,11 +71,11 @@ describe('ArticleService', () => {
         summary: faker.lorem.text(),
         newsSite: faker.internet.domainName(),
         featured: true,
+        publishedAt: faker.date.past().toUTCString(),
       };
 
       prisma.article.create = jest.fn().mockReturnValueOnce({
         id: randomInt(100),
-        publishedAt: new Date(),
         ...payload,
       });
 
@@ -96,11 +96,12 @@ describe('ArticleService', () => {
         summary: faker.lorem.text(),
         newsSite: faker.internet.domainName(),
         featured: true,
+        publishedAt: faker.date.past().toUTCString(),
       };
 
       prisma.article.update = jest
         .fn()
-        .mockReturnValueOnce({ id, publishedAt: new Date(), ...payload });
+        .mockReturnValueOnce({ id, ...payload });
 
       const result = await service.update(id, payload);
 
