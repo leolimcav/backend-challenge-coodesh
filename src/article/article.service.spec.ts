@@ -99,9 +99,7 @@ describe('ArticleService', () => {
         publishedAt: faker.date.past().toUTCString(),
       };
 
-      prisma.article.update = jest
-        .fn()
-        .mockReturnValueOnce({ id, ...payload });
+      prisma.article.update = jest.fn().mockReturnValueOnce({ id, ...payload });
 
       const result = await service.update(id, payload);
 

@@ -15,30 +15,30 @@ const api = axios.create({
 const pipelineAsync = promisify(pipeline);
 
 async function populateDatabase() {
-
-  const { data: count } = await api.get<Number>('/articles/count');
+  const { data: count } = await api.get<number>('/articles/count');
 
   let skip = 0;
-  let take = 250;
+  const take = 250;
   let error = false;
 
   while (skip < count) {
     console.log(`Fetching at: ${skip}`);
-    await api.get<CreateArticleDto[]>(`/articles?_start=${skip}&_limit=${take}`)
+    await api
+      .get<CreateArticleDto[]>(`/articles?_start=${skip}&_limit=${take}`)
       .then(async ({ data }) => {
         const readable = new Readable({
-          read: function() {
+          read: function () {
             this.push(JSON.stringify(data));
             this.push(null);
-          }
+          },
         });
 
         const transformToObject = new Transform({
           transform(chunk, _, cb) {
-            let articles = JSON.parse(chunk);
-            let articlesDto = new Array<CreateArticleDto>();
+            const articles = JSON.parse(chunk);
+            const articlesDto = new Array<CreateArticleDto>();
 
-            articles.forEach(article => {
+            articles.forEach((article) => {
               const articleDto = new CreateArticleDto();
               articleDto.title = article.title;
               articleDto.url = article.url;
@@ -52,7 +52,7 @@ async function populateDatabase() {
             });
 
             cb(null, JSON.stringify(articlesDto));
-          }
+          },
         });
 
         const writable = new Writable({
@@ -63,14 +63,10 @@ async function populateDatabase() {
             });
 
             cb();
-          }
+          },
         });
 
-        await pipelineAsync(
-          readable,
-          transformToObject,
-          writable
-        );
+        await pipelineAsync(readable, transformToObject, writable);
       })
       .catch((err) => {
         console.log(err.toJSON());
@@ -91,4 +87,3 @@ prisma.$connect();
 populateDatabase();
 
 prisma.$disconnect();
-
