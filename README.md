@@ -1,32 +1,21 @@
-<!-- <p align="center"> -->
-<!--   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a> -->
-<!-- </p> -->
-
-<!-- [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456 -->
-<!-- [circleci-url]: https://circleci.com/gh/nestjs/nest -->
-
-<!--   <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p> -->
-<!--     <p align="center"> -->
-<!-- <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a> -->
-<!-- <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a> -->
-<!-- <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a> -->
-<!-- <a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a> -->
-<!-- <a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a> -->
-<!-- <a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a> -->
-<!-- <a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a> -->
-<!-- <a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a> -->
-<!--   <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a> -->
-<!--     <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a> -->
-<!--   <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a> -->
-<!-- </p> -->
-<!--   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer) -->
-<!--   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)--> -->
-
 # Desafio Back-End Coodesh (Space Flight News API)
 
 ## Descrição
 
 API de informações relacionadas a voos espaciais, baseado no API pública [Space Flight News](https://api.spaceflightnewsapi.net/v3/documentation)
+
+## Tecnologias
+
+- [NodeJS] (https://nodejs.org/en/)
+- [Typescript] (https://www.typescriptlang.org/)
+- [NestJS] (https://nestjs.com/)
+- [Prisma] (https://www.prisma.io/)
+- [PostgreSQL] (https://www.postgresql.org/)
+- [Docker] (https://www.docker.com/)
+- [Docker Compose] (https://docs.docker.com/compose/)
+- [Jest] (https://jestjs.io/)
+- [Yarn] (https://yarnpkg.com/)
+- [Axios] (https://axios-http.com/docs/intro)
 
 ## Instalação
 Para instalar os pacotes do projeto execute com o `yarn` ou `npm`:
@@ -41,21 +30,58 @@ $ yarn
 
 ## Executando a aplicação
 
+Antes de executar a aplicação é necessário configurar o arquivo de variáveis de ambiente.
+Para isso faça uma copia do arquivo `.env.example` e salve com o nome `.env`.
+Em seguida preencha as informações no arquivo `.env`.
+
+```env
+PORT = "Porta que a api irá responder"
+SPACEFLIGHT_API_URL= "Url da api do spaceflight api <https://api.spaceflightnewsapi.net/v3/>"
+DATABASE_URL= "Url de conexão com o banco para o prisma. Ex: postgresql://mydbuser:mydbpasswordt@mydbhost:5432/mydbname?schema=public"
+POSTGRES_DB= "Nome do banco que irá executar no container"
+POSTGRES_USER= "Nome do usuario do banco postgres executando no container"
+POSTGRES_PASSWORD= "Senha do usuário do postgres executando no container"
+```
+Após isso execute o comando de acordo com o ambiente.
+
 ```bash
-# development
+# Ambiente de desenvolvimento local
 $ npm run start
 # ou com yarn
 $ yarn start
+
+# Ambiente de desenvolvimento com docker
+$ docker-compose up -d --build
 
 # watch mode
 $ npm run start:dev
 # ou com yarn
 $ yarn start:dev
 
-# production mode
+# Ambiente de produção
 $ npm run start:prod
 # ou com yarn
 $ yarn start:prod
+```
+## Rodando as migrations
+
+O projeto utiliza o ORM Prisma para lidar com conexão e ações no banco e para configurar o banco de dados apropriadamente é necessário rodar as migrations.
+
+```bash
+# Ambiente local
+$ npm run prisma migrate dev
+# ou
+$ yarn prisma migrate dev
+
+# Ambiente de desenvolvimento com docker
+$ docker exec -it spaceflight-api npm run prisma migrate dev
+# ou
+$ docker exec -it spaceflight-api yarn run prisma migrate dev
+
+# Para ambiente de produção
+$ npm run prisma migrate deploy
+# ou
+# yarn prisma migrate deploy
 ```
 
 ## Executando os testes
@@ -78,10 +104,9 @@ $ yarn test:cov
 
 ```
 
-<!-- ## Stay in touch -->
+## Contatos
 
-<!-- - Author - [Kamil Myśliwiec](https://kamilmysliwiec.com) -->
-<!-- - Website - [https://nestjs.com](https://nestjs.com/) -->
-<!-- - Twitter - [@nestframework](https://twitter.com/nestframework) -->
+- Autor - [Leonardo Lima Cavalcante] (https://github.com/leolimcav)
+- [LinkedIn] (https://www.linkedin.com/in/leonardo-lima-cavalcante/)
 
 > This is a challenge by [Coodesh](https://coodesh.com/)
