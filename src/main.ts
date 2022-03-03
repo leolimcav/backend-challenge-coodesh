@@ -7,13 +7,12 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Coodesh Back-End Challenge API')
-    .setDescription('Coodesh Spaceflight API challenge')
+    .setDescription('Coodesh Spaceflight API Challenge')
     .setVersion('1.0')
-    .addTag('Spaceflight News')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('swagger', app, document);
 
   await app.listen(process.env.PORT || 3000);
 }

@@ -96,7 +96,7 @@ describe('ArticleService', () => {
         summary: faker.lorem.text(),
         newsSite: faker.internet.domainName(),
         featured: true,
-        publishedAt: faker.date.past().toUTCString(),
+        publishedAt: faker.date.past().toISOString(),
       };
 
       prisma.article.update = jest.fn().mockReturnValueOnce({ id, ...payload });
@@ -117,6 +117,7 @@ describe('ArticleService', () => {
         summary: faker.lorem.text(),
         newsSite: faker.internet.domainName(),
         featured: true,
+        publishedAt: faker.date.past().toISOString(),
       };
 
       prisma.article.update = jest.fn().mockImplementationOnce(() => {
@@ -137,7 +138,7 @@ describe('ArticleService', () => {
         id,
         title: faker.lorem.word(),
         summary: faker.lorem.text(),
-        publishedAt: new Date(),
+        publishedAt: faker.date.past(),
         imageUrl: faker.image.imageUrl(),
         url: faker.internet.url(),
         featured: false,
