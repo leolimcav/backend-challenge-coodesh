@@ -104,6 +104,10 @@ $ yarn test:cov
 
 ```
 
+## Swagger
+
+O endpoint para visualizar o swagger do projeto é `<base_url>/swagger`
+
 ## Contatos
 
 - Autor - [Leonardo Lima Cavalcante](https://github.com/leolimcav)
