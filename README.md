@@ -6,16 +6,16 @@ API de informações relacionadas a voos espaciais, baseado no API pública [Spa
 
 ## Tecnologias
 
-- [NodeJS] (https://nodejs.org/en/)
-- [Typescript] (https://www.typescriptlang.org/)
-- [NestJS] (https://nestjs.com/)
-- [Prisma] (https://www.prisma.io/)
-- [PostgreSQL] (https://www.postgresql.org/)
-- [Docker] (https://www.docker.com/)
-- [Docker Compose] (https://docs.docker.com/compose/)
-- [Jest] (https://jestjs.io/)
-- [Yarn] (https://yarnpkg.com/)
-- [Axios] (https://axios-http.com/docs/intro)
+- [NodeJS](https://nodejs.org/en/)
+- [Typescript](https://www.typescriptlang.org/)
+- [NestJS](https://nestjs.com/)
+- [Prisma](https://www.prisma.io/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+- [Jest](https://jestjs.io/)
+- [Yarn](https://yarnpkg.com/)
+- [Axios](https://axios-http.com/docs/intro)
 
 ## Instalação
 Para instalar os pacotes do projeto execute com o `yarn` ou `npm`:
@@ -106,7 +106,7 @@ $ yarn test:cov
 
 ## Contatos
 
-- Autor - [Leonardo Lima Cavalcante] (https://github.com/leolimcav)
-- [LinkedIn] (https://www.linkedin.com/in/leonardo-lima-cavalcante/)
+- Autor - [Leonardo Lima Cavalcante](https://github.com/leolimcav)
+- [LinkedIn](https://www.linkedin.com/in/leonardo-lima-cavalcante/)
 
 > This is a challenge by [Coodesh](https://coodesh.com/)
