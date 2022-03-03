@@ -4,6 +4,10 @@
 
 API de informações relacionadas a voos espaciais, baseado no API pública [Space Flight News](https://api.spaceflightnewsapi.net/v3/documentation)
 
+## Link do video de apresentação
+
+[Vídeo](https://youtu.be/zOaYN7fCE9Q)
+
 ## Tecnologias
 
 - [NodeJS](https://nodejs.org/en/)
