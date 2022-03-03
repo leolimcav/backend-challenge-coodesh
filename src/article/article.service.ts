@@ -11,7 +11,7 @@ type Options = {
 
 @Injectable()
 export class ArticleService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async create({
     title,
@@ -55,7 +55,15 @@ export class ArticleService {
 
   async update(
     id: number,
-    { title, url, imageUrl, summary, featured, newsSite, publishedAt }: UpdateArticleDto,
+    {
+      title,
+      url,
+      imageUrl,
+      summary,
+      featured,
+      newsSite,
+      publishedAt,
+    }: UpdateArticleDto,
   ): Promise<Article | null> {
     try {
       return await this.prisma.article.update({

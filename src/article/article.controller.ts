@@ -29,7 +29,7 @@ type Options = {
 
 @Controller('articles')
 export class ArticleController {
-  constructor(private readonly articleService: ArticleService) { }
+  constructor(private readonly articleService: ArticleService) {}
 
   @Post()
   @HttpCode(201)
@@ -49,16 +49,18 @@ export class ArticleController {
     description: 'Return a list of articles',
   })
   @ApiQuery({
-    description: "Value to begin searching for articles. The default value is 0",
-    name: "skip",
-    type: "number",
-    required: false
+    description:
+      'Value to begin searching for articles. The default value is 0',
+    name: 'skip',
+    type: 'number',
+    required: false,
   })
   @ApiQuery({
-    description: "Represents the number of articles that will be returned in thie response. The default value is 10",
-    type: "number",
-    name: "take",
-    required: false
+    description:
+      'Represents the number of articles that will be returned in thie response. The default value is 10',
+    type: 'number',
+    name: 'take',
+    required: false,
   })
   async findAll(@Query() { skip = 0, take = 10 }: Options) {
     return this.articleService.findAll({ skip, take });
