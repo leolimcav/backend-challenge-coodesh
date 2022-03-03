@@ -6,7 +6,8 @@ API de informações relacionadas a voos espaciais, baseado no API pública [Spa
 
 ## Link do video de apresentação
 
-[Vídeo](https://youtu.be/zOaYN7fCE9Q)
+[Vídeo-Youtube](https://youtu.be/zOaYN7fCE9Q)
+[Vídeo-Loom](https://www.loom.com/share/022236d28e9044c2bd867cbae1ce76a4)
 
 ## Tecnologias
 
