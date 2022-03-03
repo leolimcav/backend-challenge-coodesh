@@ -11,7 +11,7 @@ type Options = {
 
 @Injectable()
 export class ArticleService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async create({
     title,
@@ -20,6 +20,7 @@ export class ArticleService {
     newsSite,
     summary,
     featured,
+    publishedAt,
   }: CreateArticleDto): Promise<Article> {
     return this.prisma.article.create({
       data: {
@@ -29,15 +30,15 @@ export class ArticleService {
         newsSite,
         summary,
         featured,
-        publishedAt: new Date(),
+        publishedAt,
       },
     });
   }
 
   async findAll({ skip, take }: Options): Promise<Array<Article>> {
     return this.prisma.article.findMany({
-      skip,
-      take,
+      skip: Number(skip),
+      take: Number(take),
       orderBy: {
         publishedAt: 'desc',
       },
@@ -54,7 +55,7 @@ export class ArticleService {
 
   async update(
     id: number,
-    { title, url, imageUrl, summary, featured, newsSite }: UpdateArticleDto,
+    { title, url, imageUrl, summary, featured, newsSite, publishedAt }: UpdateArticleDto,
   ): Promise<Article | null> {
     try {
       return await this.prisma.article.update({
@@ -68,6 +69,7 @@ export class ArticleService {
           summary,
           featured,
           newsSite,
+          publishedAt,
         },
       });
     } catch (error) {

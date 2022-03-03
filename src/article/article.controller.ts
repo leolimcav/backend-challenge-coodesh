@@ -15,6 +15,7 @@ import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
+  ApiQuery,
 } from '@nestjs/swagger';
 import { ArticleService } from './article.service';
 import { CreateArticleDto } from './dto/create-article.dto';
@@ -28,12 +29,12 @@ type Options = {
 
 @Controller('articles')
 export class ArticleController {
-  constructor(private readonly articleService: ArticleService) {}
+  constructor(private readonly articleService: ArticleService) { }
 
   @Post()
   @HttpCode(201)
   @ApiBody({
-    type: [CreateArticleDto],
+    type: CreateArticleDto,
   })
   @ApiCreatedResponse({
     description: 'Create a new article in the database',
@@ -47,7 +48,19 @@ export class ArticleController {
   @ApiOkResponse({
     description: 'Return a list of articles',
   })
-  async findAll(@Query() { skip, take }: Options) {
+  @ApiQuery({
+    description: "Value to begin searching for articles. The default value is 0",
+    name: "skip",
+    type: "number",
+    required: false
+  })
+  @ApiQuery({
+    description: "Represents the number of articles that will be returned in thie response. The default value is 10",
+    type: "number",
+    name: "take",
+    required: false
+  })
+  async findAll(@Query() { skip = 0, take = 10 }: Options) {
     return this.articleService.findAll({ skip, take });
   }
 
@@ -72,7 +85,7 @@ export class ArticleController {
 
   @Put(':id')
   @ApiBody({
-    type: [UpdateArticleDto],
+    type: UpdateArticleDto,
   })
   @ApiOkResponse({
     description: 'Update an article',
